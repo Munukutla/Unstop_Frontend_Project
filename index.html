@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            max-width: 900px;
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .left-section {
+            flex: 1;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .left-section h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .left-section p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .right-section {
+            flex: 1;
+            padding: 40px;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo h1 {
+            color: #2575fc;
+            font-size: 32px;
+        }
+
+        .social-login {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .social-btn {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .social-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .google-btn {
+            color: #DB4437;
+            border-color: #DB4437;
+        }
+
+        .facebook-btn {
+            color: #4267B2;
+            border-color: #4267B2;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .divider::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background-color: #ddd;
+            z-index: 1;
+        }
+
+        .divider span {
+            background-color: white;
+            padding: 0 15px;
+            color: #777;
+            z-index: 2;
+            position: relative;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group i {
+            position: absolute;
+            left: 15px;
+            top: 15px;
+            color: #777;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px 15px 15px 45px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus {
+            border-color: #2575fc;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(37, 117, 252, 0.2);
+        }
+
+        .options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .forgot-password {
+            color: #2575fc;
+            text-decoration: none;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 20px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 117, 252, 0.4);
+        }
+
+        .register-link {
+            text-align: center;
+            color: #777;
+        }
+
+        .register-link a {
+            color: #2575fc;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .main-page {
+            display: none;
+            text-align: center;
+            padding: 40px;
+            width: 100%;
+            max-width: 600px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .main-page h2 {
+            color: #2575fc;
+            margin-bottom: 20px;
+        }
+
+        .main-page p {
+            margin-bottom: 30px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .logout-btn {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .logout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 117, 252, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                max-width: 500px;
+            }
+            
+            .left-section {
+                padding: 30px 20px;
+            }
+            
+            .right-section {
+                padding: 30px 20px;
+            }
+            
+            .social-login {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                border-radius: 10px;
+            }
+            
+            .left-section, .right-section {
+                padding: 20px 15px;
+            }
+            
+            .logo h1 {
+                font-size: 26px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Page -->
+    <div class="container" id="loginPage">
+        <div class="left-section">
+            <h2>Welcome Back!</h2>
+            <p>Sign in to access your account and continue your journey with us. We're glad to have you back!</p>
+        </div>
+        <div class="right-section">
+            <div class="logo">
+                <h1>Welcome to <br> <span style="color:darkviolet;">Unstop</span> </h1>
+            </div>
+            
+            <div class="social-login">
+                <div class="social-btn google-btn">
+                    <i class="fab fa-google"></i>
+                    <span>Login with Google</span>
+                </div>
+                <div class="social-btn facebook-btn">
+                    <i class="fab fa-facebook-f"></i>
+                    <span>Login with Facebook</span>
+                </div>
+            </div>
+            
+            <div class="divider">
+                <span>Or sign in with email</span>
+            </div>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" id="username" placeholder="Username" required>
+                    <div class="error-message" id="usernameError">Username must be "emilys"</div>
+                </div>
+                
+                <div class="form-group">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" id="email" placeholder="Email" required>
+                    <div class="error-message" id="emailError">Please enter a valid email address</div>
+                </div>
+                
+                <div class="form-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" id="password" placeholder="Password" required>
+                    <div class="error-message" id="passwordError">Password must be at least 8 characters</div>
+                </div>
+                
+                <div class="options">
+                    <div class="remember-me">
+                        <input type="checkbox" id="rememberMe">
+                        <label for="rememberMe">Remember Me</label>
+                    </div>
+                    <a href="#" class="forgot-password">Forgot Password?</a>
+                </div>
+                
+                <button type="submit" class="login-btn">Login</button>
+            </form>
+            
+            <div class="register-link">
+                <p>Don't have an account? <a href="#">Register</a></p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Page (after login) -->
+    <div class="main-page" id="mainPage" style="background-image: url('https://media.istockphoto.com/id/1424582822/photo/realistic-glossy-user-id-check-mark-icon-3d-render-concept-for-approved.webp?a=1&b=1&s=612x612&w=0&k=20&c=SQpU0w2GnVhaOp9n-6YU8uhV2IvNzO-fOwRpfdEPvNE=');">
+        <h2>Welcome to the Main Page!</h2>
+        <p>You have successfully logged in. This is the main content area where users can access all the features of the application.</p>
+        <p>Your authentication token has been stored in localStorage. You can log out at any time using the button below.</p>
+
+        <img src="https://media.istockphoto.com/id/1424582822/photo/realistic-glossy-user-id-check-mark-icon-3d-render-concept-for-approved.webp?a=1&b=1&s=612x612&w=0&k=20&c=SQpU0w2GnVhaOp9n-6YU8uhV2IvNzO-fOwRpfdEPvNE=">
+
+        <button class="logout-btn" id="logoutBtn">Logout</button>
+    </div>
+
+    <script>
+        // Check if user is already logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            const userData = localStorage.getItem('userData');
+            
+            if (userData) {
+                // User is already logged in, redirect to main page
+                showMainPage();
+            } else {
+                // User is not logged in, show login page
+                showLoginPage();
+            }
+            
+            // Add event listeners
+            document.getElementById('loginForm').addEventListener('submit', handleLogin);
+            document.getElementById('logoutBtn').addEventListener('click', handleLogout);
+            
+            // Add validation on input change
+            document.getElementById('username').addEventListener('input', validateUsername);
+            document.getElementById('email').addEventListener('input', validateEmail);
+            document.getElementById('password').addEventListener('input', validatePassword);
+        });
+        
+        function showLoginPage() {
+            document.getElementById('loginPage').style.display = 'flex';
+            document.getElementById('mainPage').style.display = 'none';
+        }
+        
+        function showMainPage() {
+            document.getElementById('loginPage').style.display = 'none';
+            document.getElementById('mainPage').style.display = 'block';
+        }
+        
+        function validateUsername() {
+            const username = document.getElementById('username').value;
+            const errorElement = document.getElementById('usernameError');
+            
+            if (username !== 'emilys') {
+                errorElement.style.display = 'block';
+                return false;
+            } else {
+                errorElement.style.display = 'none';
+                return true;
+            }
+        }
+        
+        function validateEmail() {
+            const email = document.getElementById('email').value;
+            const errorElement = document.getElementById('emailError');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if (!emailRegex.test(email)) {
+                errorElement.style.display = 'block';
+                return false;
+            } else {
+                errorElement.style.display = 'none';
+                return true;
+            }
+        }
+        
+        function validatePassword() {
+            const password = document.getElementById('password').value;
+            const errorElement = document.getElementById('passwordError');
+            
+            if (password.length < 8) {
+                errorElement.style.display = 'block';
+                return false;
+            } else {
+                errorElement.style.display = 'none';
+                return true;
+            }
+        }
+        
+        function handleLogin(e) {
+            e.preventDefault();
+            
+            // Validate inputs
+            const isUsernameValid = validateUsername();
+            const isEmailValid = validateEmail();
+            const isPasswordValid = validatePassword();
+            
+            if (isUsernameValid && isEmailValid && isPasswordValid) {
+                // All validations passed, proceed with login
+                const loginData = {
+                    username: document.getElementById('username').value,
+                    password: document.getElementById('password').value,
+                    email: document.getElementById('email').value,
+                    expiresInMins: 30
+                };
+                
+                // Send login request to API
+                fetch('https://dummyjson.com/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(loginData)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Login failed');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Store user data in localStorage
+                    localStorage.setItem('userData', JSON.stringify(data));
+                    
+                    // Redirect to main page
+                    showMainPage();
+                })
+                .catch(error => {
+                    alert('Login failed. Please check your credentials and try again.');
+                    console.error('Login error:', error);
+                });
+            } else {
+                alert('Please fix the validation errors before submitting.');
+            }
+        }
+        
+        function handleLogout() {
+            // Remove user data from localStorage
+            localStorage.removeItem('userData');
+            
+            // Redirect to login page
+            showLoginPage();
+            
+            // Clear form fields
+            document.getElementById('loginForm').reset();
+        }
+    </script>
+</body>
+</html>
